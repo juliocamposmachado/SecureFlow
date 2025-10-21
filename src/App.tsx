@@ -1,5 +1,7 @@
 import { Shield, MapPin, TrendingUp, Zap, Lock, Activity, BarChart3, Clock, CheckCircle2, AlertTriangle, Users, Smartphone, Mail, Phone, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { LocationCard } from './components/LocationCard';
+import { PixPaymentCard } from './components/PixPaymentCard';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -379,8 +381,25 @@ function App() {
         </div>
       </section>
 
-      {/* Testimonials / Stats Section */}
+      {/* Demo Section */}
       <section className="py-24 bg-slate-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Experimente na Prática</h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Veja como nossas tecnologias funcionam em tempo real com demonstrações interativas
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-24">
+            <LocationCard />
+            <PixPaymentCard />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Stats Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Resultados Comprovados</h2>
@@ -389,7 +408,7 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mt-8">
             <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 text-center">
               <div className="text-5xl font-bold text-emerald-600 mb-2">87%</div>
               <div className="text-slate-600 font-medium">Redução em tentativas de fraude</div>
