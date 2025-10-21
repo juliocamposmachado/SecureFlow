@@ -164,13 +164,13 @@ export function TerminalSimulation() {
                 <div
                   key={lineIdx}
                   className={`${
-                    line.includes('SUCCESS') || line.includes('healthy')
+                    line && (line.includes('SUCCESS') || line.includes('healthy'))
                       ? 'text-emerald-400'
-                      : line.includes('ERROR') || line.includes('FAILED')
+                      : line && (line.includes('ERROR') || line.includes('FAILED'))
                       ? 'text-red-400'
-                      : line.includes('INFO')
+                      : line && line.includes('INFO')
                       ? 'text-blue-400'
-                      : line.includes('━')
+                      : line && line.includes('━')
                       ? 'text-slate-600'
                       : 'text-slate-300'
                   } leading-relaxed`}
@@ -197,13 +197,13 @@ export function TerminalSimulation() {
                 <div
                   key={idx}
                   className={`${
-                    line.includes('SUCCESS') || line.includes('healthy')
+                    line && (line.includes('SUCCESS') || line.includes('healthy'))
                       ? 'text-emerald-400'
-                      : line.includes('ERROR') || line.includes('FAILED')
+                      : line && (line.includes('ERROR') || line.includes('FAILED'))
                       ? 'text-red-400'
-                      : line.includes('INFO')
+                      : line && line.includes('INFO')
                       ? 'text-blue-400'
-                      : line.includes('━')
+                      : line && line.includes('━')
                       ? 'text-slate-600'
                       : 'text-slate-300'
                   } leading-relaxed`}

@@ -1,4 +1,4 @@
-import { MapPin, Navigation, Loader2, AlertCircle, Building2 } from 'lucide-react';
+import { MapPin, Navigation, Loader2, AlertCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface LocationData {
@@ -8,26 +8,12 @@ interface LocationData {
   timestamp: number;
 }
 
-interface AddressData {
-  road?: string;
-  city?: string;
-  suburb?: string;
-  state?: string;
-  postcode?: string;
-  country?: string;
-  display_name?: string;
-  shop?: string;
-  name?: string;
-}
-
 export function LocationCard() {
   const [location, setLocation] = useState<LocationData | null>(null);
-  const [address, setAddress] = useState<AddressData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [permissionGranted, setPermissionGranted] = useState(false);
 
-  // Pede permissão e obtém a posição
   const requestLocation = () => {
     setLoading(true);
     setError(null);
@@ -40,16 +26,14 @@ export function LocationCard() {
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const newLocation = {
+        setLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           accuracy: position.coords.accuracy,
           timestamp: position.timestamp,
-        };
-        setLocation(newLocation);
+        });
         setPermissionGranted(true);
         setLoading(false);
-        fetchAddress(newLocation.latitude, newLocation.longitude);
       },
       (err) => {
         setError(
@@ -67,36 +51,26 @@ export function LocationCard() {
     );
   };
 
-  // Faz geocodificação reversa via Nominatim API
-  const fetchAddress = async (lat: number, lon: number) => {
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`
-      );
-      const data = await res.json();
-      setAddress(data.address);
-    } catch (err) {
-      console.error('Erro ao buscar endereço:', err);
-    }
-  };
-
-  // Atualiza em tempo real
   useEffect(() => {
     if (permissionGranted && location) {
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
-          const updatedLoc = {
+          setLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             accuracy: position.coords.accuracy,
             timestamp: position.timestamp,
-          };
-          setLocation(updatedLoc);
-          fetchAddress(updatedLoc.latitude, updatedLoc.longitude);
+          });
         },
-        (err) => console.error('Erro ao monitorar localização:', err),
-        { enableHighAccuracy: true, maximumAge: 5000 }
+        (err) => {
+          console.error('Erro ao monitorar localização:', err);
+        },
+        {
+          enableHighAccuracy: true,
+          maximumAge: 5000,
+        }
       );
+
       return () => navigator.geolocation.clearWatch(watchId);
     }
   }, [permissionGranted, location]);
@@ -109,7 +83,7 @@ export function LocationCard() {
         </div>
         <div>
           <h3 className="text-xl font-bold text-slate-900">Localização em Tempo Real</h3>
-          <p className="text-sm text-slate-500">GPS de alta precisão com identificação de endereço</p>
+          <p className="text-sm text-slate-500">GPS de alta precisão</p>
         </div>
       </div>
 
@@ -181,25 +155,11 @@ export function LocationCard() {
             </div>
           </div>
 
-          {address && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <div className="flex items-center space-x-2 mb-2">
-                <Building2 className="w-4 h-4 text-blue-600" />
-                <span className="text-blue-800 font-medium text-sm">
-                  {address.name || address.shop || 'Endereço Detectado'}
-                </span>
-              </div>
-              <p className="text-sm text-slate-800 leading-relaxed">
-                {address.road && `${address.road}, `}
-                {address.suburb && `${address.suburb}, `}
-                {address.city && `${address.city} - `}
-                {address.state}
-              </p>
-              {address.postcode && (
-                <p className="text-xs text-slate-500">{address.postcode}, {address.country}</p>
-              )}
-            </div>
-          )}
+          <div className="bg-slate-50 rounded-lg p-4">
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Sua localização está sendo monitorada em tempo real. Este é um exemplo de como nosso sistema valida a posição geográfica de usuários com precisão de GPS, detectando tentativas de fraude e spoofing.
+            </p>
+          </div>
 
           <button
             onClick={requestLocation}
