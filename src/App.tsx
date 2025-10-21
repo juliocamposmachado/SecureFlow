@@ -505,12 +505,12 @@ function App() {
               <div className="mt-8 pt-8 border-t border-white/20">
                 <p className="text-slate-400 text-sm mb-4">Ou entre em contato diretamente:</p>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                  <a href="mailto:contato@secureflow.com" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                    contato@secureflow.com
+                  <a href="mailto: likelook@live.com" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                     likelook@live.com
                   </a>
                   <span className="hidden sm:inline text-slate-600">•</span>
-                  <a href="tel:+5511999999999" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                    +55 11 99999-9999
+                  <a href="tel:+5511992946628" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                    +55 11 99294-6628
                   </a>
                 </div>
               </div>
