@@ -1,6 +1,7 @@
 import { Shield, MapPin, TrendingUp, Zap, Lock, Activity, BarChart3, Clock, CheckCircle2, AlertTriangle, Users, Smartphone, Mail, Phone, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { LocationCard } from './components/LocationCard';
+import { TerminalSimulation } from './components/TerminalSimulation';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -399,11 +400,12 @@ function App() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Experimente na Prática</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Veja como nossa tecnologia de geolocalização funciona em tempo real
+              Veja como nossa tecnologia funciona em tempo real
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <TerminalSimulation />
             <LocationCard />
           </div>
         </div>
