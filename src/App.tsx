@@ -1,20 +1,32 @@
 import { Shield, MapPin, TrendingUp, Zap, Lock, Activity, BarChart3, Clock, CheckCircle2, AlertTriangle, Users, Smartphone, Mail, Phone, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { LocationCard } from './components/LocationCard';
-import { PixPaymentCard } from './components/PixPaymentCard';
 
 function App() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+  const [locationRequested, setLocationRequested] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowSplash(false);
+      requestGeolocation();
     }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const requestGeolocation = () => {
+    if (navigator.geolocation && !locationRequested) {
+      setLocationRequested(true);
+      navigator.geolocation.getCurrentPosition(
+        () => {},
+        () => {},
+        { enableHighAccuracy: true }
+      );
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -387,13 +399,12 @@ function App() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">Experimente na Prática</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Veja como nossas tecnologias funcionam em tempo real com demonstrações interativas
+              Veja como nossa tecnologia de geolocalização funciona em tempo real
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-24">
+          <div className="max-w-2xl mx-auto">
             <LocationCard />
-            <PixPaymentCard />
           </div>
         </div>
       </section>
@@ -505,12 +516,12 @@ function App() {
               <div className="mt-8 pt-8 border-t border-white/20">
                 <p className="text-slate-400 text-sm mb-4">Ou entre em contato diretamente:</p>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                  <a href="mailto: likelook@live.com" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                     likelook@live.com
+                  <a href="mailto:contato@secureflow.com" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                    contato@secureflow.com
                   </a>
                   <span className="hidden sm:inline text-slate-600">•</span>
-                  <a href="tel:+5511992946628" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                    +55 11 99294-6628
+                  <a href="tel:+5511999999999" className="text-emerald-400 hover:text-emerald-300 transition-colors">
+                    +55 11 99999-9999
                   </a>
                 </div>
               </div>
